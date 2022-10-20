@@ -1,8 +1,11 @@
 import styles from './Product.module.scss';
 import clsx from 'clsx';
 import Button from '../Button/Button';
+// import { useState } from 'react';
 
 const Product = props => {
+  // const [currentSize] = useState(props.sizes[0].name)
+  
   return (
     <article className={styles.product}>
       <div className={styles.imageContainer}>
@@ -13,17 +16,17 @@ const Product = props => {
       </div>
       <div>
         <header>
-          <h2 className={styles.name}>Kodilla shirt</h2>
-          <span className={styles.price}>Price: 20$</span>
+          <h2 className={styles.name}>{props.title}</h2>
+          <span className={styles.price}>{props.basePrice}</span>
         </header>
         <form>
           <div className={styles.sizes}>
             <h3 className={styles.optionLabel}>Sizes</h3>
             <ul className={styles.choices}>
-              <li><button type="button" className={styles.active}>S</button></li>
-              <li><button type="button">M</button></li>
-              <li><button type="button">L</button></li>
-              <li><button type="button">XL</button></li>
+              {props.sizes.map((size, index) => {
+                return <li key={index}><button type="button" className={styles.active}>{size.name}</button></li>
+              })}
+              
             </ul>
           </div>
           <div className={styles.colors}>
