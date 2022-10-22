@@ -1,11 +1,11 @@
 import styles from './Product.module.scss';
 // import clsx from 'clsx';
-import Button from '../Button/Button';
+
 import { useState } from 'react';
 import PropTypes from "prop-types";
 import ProductImage from '../ProductImage/ProductImage';
-import OptionSize from '../OptionSize/OptionSize';
-import OptionColor from '../OptionColor/OptionColor';
+
+import ProductForm from '../ProductForm/ProductForm';
 
 const Product = props => {
   const [currentSize, setCurrentSize] = useState(props.sizes[0].name)
@@ -44,28 +44,21 @@ const Product = props => {
     <article className={styles.product}>
       <ProductImage currentColor={currentColor} name={props.name} />
      
-      <div>
-        <header>
-          <h2 className={styles.name}>{props.title}</h2>
-          <span className={styles.price}>{getPrice()}$</span>
-        </header>
-        <form>
-          <OptionSize sizes={props.sizes} size={props.size} changeCurrentSize={changeCurrentSize} currentSize={currentSize}/>
+      <ProductForm 
+          getPrice={getPrice}  
+          prepareColorClassName={prepareColorClassName} 
+          sizes={props.sizes} 
+          size={props.size}  
+          changeCurrentSize={changeCurrentSize}  
+          currentColor={currentColor} 
+          addToCard={addToCard} 
+          color={props.color}
+          changeCurrentColor={changeCurrentColor} 
+          colors={props.colors} 
+          currentSize={currentSize}
           
-          <OptionColor colors={props.colors} changeCurrentColor={changeCurrentColor} prepareColorClassName={prepareColorClassName} currentColor={currentColor} color={props.color}/>
-          {/* <div className={styles.colors}>
-            <h3 className={styles.optionLabel}>Colors</h3>
-            <ul className={styles.choices}>
-              {props.colors.map((color) => {
-                return  <li key={color}><button type="button" onClick={() => changeCurrentColor(color)}  className={clsx(prepareColorClassName(color), color === currentColor && styles.active)} /></li>
-              })}
-            </ul>
-          </div> */}
-          <Button className={styles.button} addToCard={addToCard} >
-            <span className="fa fa-shopping-cart" />
-          </Button>
-        </form>
-      </div>
+        />
+        
     </article>
   )
 };
