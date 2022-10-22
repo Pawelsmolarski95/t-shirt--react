@@ -10,12 +10,12 @@ const ProductForm = props => {
         <div>
             <header>
             <h2 className={styles.name}>{props.title}</h2>
-            <span className={styles.price}>{props.getPrice()}$</span>
+            <span className={styles.price}>{props.currentPrice}$</span>
             </header>
             <form>
-                <OptionSize sizes={props.sizes}  changeCurrentSize={props.changeCurrentSize} currentSize={props.currentSize} />
+                <OptionSize sizes={props.sizes}  changeCurrentSize={props.changeCurrentSize} currentSize={props.currentSize} setAdditionalPrice={props.setAdditionalPrice} />
                 <OptionColor colors={props.colors} changeCurrentColor={props.changeCurrentColor} currentColor={props.currentColor} />
-                <Button className={styles.button} addToCard={props.addToCard} >
+                <Button className={styles.button} addToCard={props.addToCard} changePrice={props.changePrice}>
                     <span className="fa fa-shopping-cart" />
                 </Button>
             </form>

@@ -9,7 +9,7 @@ const OptionSize = (props) => {
             <h3 className={styles.optionLabel}>Sizes</h3>
             <ul className={styles.choices}>
               {props.sizes.map(size => 
-                <li key={shortid()} ><button type="button" onClick={() =>  { props.changeCurrentSize(size.name) }} className={clsx(size.name === props.currentSize ? styles.active : undefined )}>{size.name}</button></li>
+                <li key={shortid()} ><button type="button" onClick={() =>  { props.changeCurrentSize(size.name) ; props.setAdditionalPrice(size.additionalPrice)  }} className={clsx(size.name === props.currentSize ? styles.active : undefined )}>{size.name}</button></li>
               )}
               
             </ul>

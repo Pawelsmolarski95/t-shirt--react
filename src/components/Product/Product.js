@@ -4,12 +4,15 @@ import styles from './Product.module.scss';
 import { useState } from 'react';
 import PropTypes from "prop-types";
 import ProductImage from '../ProductImage/ProductImage';
-
+import { useMemo } from 'react';
 import ProductForm from '../ProductForm/ProductForm';
 
 const Product = props => {
   const [currentSize, setCurrentSize] = useState(props.sizes[0].name)
   const [currentColor, setCurrentColor] = useState(props.colors[2])
+  const [currentPrice, setCurrentPrice] = useState(props.basePrice);
+  const [additionalPrice, setAdditionalPrice] = useState('');
+  
   
   
   const prepareColorClassName = (color) => {
@@ -24,18 +27,18 @@ const Product = props => {
     return setCurrentSize(item)
   } 
   
-  const getPrice = () => {
-   
-    const sizeData = props.sizes.find(size => size.name=== currentSize)
-    return sizeData.additionalPrice + props.basePrice;
-  }
+  
+  useMemo(() => {
+    
+    setCurrentPrice(additionalPrice + props.basePrice)
+  },[additionalPrice, props.basePrice])
   
   const addToCard = (event) => {
     event.preventDefault()
     console.log('Summary');
     console.log('========');
     console.log('name: ', props.title);
-    console.log('price: ', getPrice());
+    console.log('price: ', currentPrice);
     console.log('size: ', currentSize);
     console.log('color:', currentColor );
   }
@@ -45,7 +48,7 @@ const Product = props => {
       <ProductImage currentColor={currentColor} name={props.name} />
      
       <ProductForm 
-          getPrice={getPrice}  
+            
           prepareColorClassName={prepareColorClassName} 
           sizes={props.sizes} 
           size={props.size}  
@@ -56,8 +59,9 @@ const Product = props => {
           changeCurrentColor={changeCurrentColor} 
           colors={props.colors} 
           currentSize={currentSize}
-          
-        />
+          setAdditionalPrice={setAdditionalPrice}
+          currentPrice={currentPrice}
+          />
         
     </article>
   )
